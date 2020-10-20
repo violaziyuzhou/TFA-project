@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import squirrel
-from forms.py import apprequestform
+from .forms import apprequestform
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Sum
@@ -58,8 +58,7 @@ def stats(request):
             age_adult+=1
         else:
             age_unknown+=1
-    context = {'la_sum':la_sum,'lo_sum':lo_sum,'id_sum':id_sum,'shift_am':shift_am,'shift_pm':shift_pm,'age_juvenile':age_juvenile
-               'age_adult':age_adult,'age_unknown':age_unknown}
+    context = {'la_sum':la_sum,'lo_sum':lo_sum,'id_sum':id_sum,'shift_am':shift_am,'shift_pm':shift_pm,'age_juvenile':age_juvenile,'age_adult':age_adult,'age_unknown':age_unknown}
     return render(request, 'app/stats.html', context)
 
 
