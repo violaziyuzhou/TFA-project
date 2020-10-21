@@ -41,7 +41,7 @@ def sightings(request):
     context = {'sightings': sightings}
     return render(request, 'app/sightings.html', context)
 def unique_squirrel_id(request,squiid):
-    sightings = squirrel.objects.get(id=squiid)
+    sightings = squirrel.objects.get(squirrel_id=squiid)
     context = {'sightings': sightings}
     if request.method=='POST':
         form = squirrel(request.POST)
@@ -62,8 +62,8 @@ def add(request):
     context = {'sightings': sightings}
     return render(request, 'app/add.html', context)
 def stats(request):
-    la_sum = squirrel.objects.filter('latitude').aggregate(nums=Sum('count'))
-    lo_sum = squirrel.objects.filter('longitude').aggregate(nums=Sum('count'))
+    la_sum = squirrel.aggregate(minimum=Min('latitude'),maximum=Max('latitude'))
+    lo_sum = squirrel.aggregate(minimum=Min('longitude'),maximum=Max('longitutde'))
     id_sum=0
     for i in squirrel.objects.filter('squirrel_id'):
         id_sum+=1
