@@ -5,11 +5,11 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Sum
 
+
 def map(request):
-    sightings=squirrel.objects.all()[:,100]
+    sightings=squirrel.objects.all()[:100]
     context={'sightings':sightings}
-    get_request(request)
-    return render(request,'app/map.html',context)
+    return render(request, 'app/map.html',context)
 def sightings(request):
     sightings = squirrel.objects.all()
     context = {'sightings': sightings}
@@ -25,7 +25,7 @@ def unique_squirrel_id(request,squiid):
         return JsonResponse({},status=405)
     sightings.latitude=form.latitude
     sightings.longitude=form.longitude
-    sightings.id=form.id
+    sightings.squirrel_id=form.squirrel_id
     sightings.shift=form.shift
     sightings.date=form.date
     sightings.age=form.age
@@ -39,7 +39,7 @@ def stats(request):
     la_sum = squirrel.objects.filter('latitude').aggregate(nums=Sum('count'))
     lo_sum = squirrel.objects.filter('longitude').aggregate(nums=Sum('count'))
     id_sum=0
-    for i in squirrel.objects.filter('id'):
+    for i in squirrel.objects.filter('squirrel_id'):
         id_sum+=1
     shift_am=0
     shift_pm=0
@@ -62,30 +62,3 @@ def stats(request):
     return render(request, 'app/stats.html', context)
 
 
-
-
-
-def get_post_request(request):
-    if request.method=='POST':
-        form=squirrel(request.POST)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({})
-        else:
-            return JsonResponse({'error':form.error},status=400)
-    else:
-        form=squirrel(request.GET)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({})
-        else:
-            return JsonResponse({'error':form.error},status=400)
-def get_request(request):
-    if request.method=='GET':
-        form=apprequestform(request.GET)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({})
-        else:
-            return JsonResponse({'error':form.error},status=400)
-    return JsonResponse({},status=405)
