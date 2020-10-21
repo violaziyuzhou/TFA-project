@@ -5,10 +5,36 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Sum
 
+def get_post_request(request):
+    if request.method=='POST':
+        form=squirrel(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({})
+        else:
+            return JsonResponse({'error':form.error},status=400)
+    else:
+        form=squirrel(request.GET)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({})
+        else:
+            return JsonResponse({'error':form.error},status=400)
+def get_request(request):
+    if request.method=='GET':
+        form=apprequestform(request.GET)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({})
+        else:
+            return JsonResponse({'error':form.error},status=400)
+    return JsonResponse({},status=405)
+
 
 def map(request):
     sightings=squirrel.objects.all()[:100]
     context={'sightings':sightings}
+    get_request(request)
     return render(request, 'app/map.html',context)
 def sightings(request):
     sightings = squirrel.objects.all()
