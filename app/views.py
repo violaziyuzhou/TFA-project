@@ -3,22 +3,9 @@ from .models import squirrel
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Sum, Min, Max
+from .forms import Form
 
-def get_post_request(request):
-    if request.method=='POST':
-        form=squirrel(request.POST)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({})
-        else:
-            return JsonResponse({'error':form.error},status=400)
-    else:
-        form=squirrel(request.GET)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({})
-        else:
-            return JsonResponse({'error':form.error},status=400)
+
 
 
 
@@ -33,24 +20,21 @@ def sightings(request):
     return render(request, 'app/sightings.html', context)
 def unique_squirrel_id(request,squiid):
     sightings = squirrel.objects.get(squirrel_id=squiid)
-    context = {'sightings': sightings}
-    if request.method=='POST':
-        form = squirrel(request.POST)
-    elif request.method=='GET':
-        form = squirrel(request.GET)
-    else:
-        return JsonResponse({},status=405)
-    sightings.latitude=form.latitude
-    sightings.longitude=form.longitude
-    sightings.squirrel_id=form.squirrel_id
-    sightings.shift=form.shift
-    sightings.date=form.date
-    sightings.age=form.age
-    return render(request, 'app/id.html', context)
+    form = Form(request.POST,instance=sightings)
+    context = {'form': form}
+    if form.is_valid():
+        sightings=form.save()
+        sightings.save()
+    else:   
+        return render(request, 'app/id.html', context)
 def add(request):
-    
-    sightings = squirrel()
-    context = {'sightings': sightings}
+    if request.method=='POST':
+        form=Form(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form=Form()
+        context = {'form':form}
     return render(request, 'app/add.html', context)
 def status(request):
     total = len(squirrel.objects.all())
