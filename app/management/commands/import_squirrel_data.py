@@ -16,7 +16,7 @@ class Command(BaseCommand):
                 obj.longitude=item['Y']
                 obj.id=item['Unique Squirrel ID']
                 obj.shift=item['Shift']
-                obj.date=datetime.strptime('%m%d%y',item['Date']).date()
+                obj.date=datetime.date(int(item['Date'][-4:]), int(item['Date'][:2]), int(item['Date'][2:4]))
                 obj.age=item['Age']
                 obj.primary_fur_color=item['Primary Fur Color']
                 obj.location=item['Location']
