@@ -40,8 +40,8 @@ def stats(request):
     total = len(squirrel.objects.all())
     la_sum = squirrel.objects.all().aggregate(minimum=Min('latitude'),maximum=Max('latitude'))
     lo_sum = squirrel.objects.all().aggregate(minimum=Min('longitude'),maximum=Max('longitude'))
-    age_juvenile = squirrel.objects.filter(age='juvenile').count()
-    age_adult = squirrel.objects.filter(age='adult').count()
+    age_juvenile = squirrel.objects.filter(age='Juvenile').count()
+    age_adult = squirrel.objects.filter(age='Adult').count()
     context ={'total':total,'la_sum':la_sum,'lo_sum':lo_sum,'age_juvenile':age_juvenile,'age_adult':age_adult}
     return render(request, 'app/stats.html', context)
 
