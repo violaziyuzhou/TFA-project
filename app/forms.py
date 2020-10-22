@@ -4,4 +4,4 @@ from django.forms import ModelForm
 class Form(ModelForm):
     class Meta:
         model=squirrel
-        fields=['__all__']
+        fields=['latitude','longitude','squirrel_id','shift','date','age']
