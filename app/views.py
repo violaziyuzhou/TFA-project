@@ -36,7 +36,7 @@ def add(request):
         form=Form()
         context = {'form':form}
     return render(request, 'app/add.html', context)
-def status(request):
+def stats(request):
     total = len(squirrel.objects.all())
     la_sum = squirrel.objects.all().aggregate(minimum=Min('latitude'),maximum=Max('latitude'))
     lo_sum = squirrel.objects.all().aggregate(minimum=Min('longitude'),maximum=Max('longitude'))
