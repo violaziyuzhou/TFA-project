@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from .models import squirrel
-from .forms import apprequestform
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.db.models import Sum
@@ -22,7 +21,7 @@ def get_post_request(request):
             return JsonResponse({'error':form.error},status=400)
 def get_request(request):
     if request.method=='GET':
-        form=apprequestform(request.GET)
+        form=squirrel(request.GET)
         if form.is_valid():
             form.save()
             return JsonResponse({})
