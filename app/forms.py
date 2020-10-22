@@ -1,7 +1,7 @@
-from .models import apprequest
+from .models import squirrel
 from django.forms import ModelForm
 
-class apprequestform(ModelForm):
+class Form(ModelForm):
     class Meta:
-        model=apprequest
-        fields=['squi']
+        model=squirrel
+        fields=['__all__']
