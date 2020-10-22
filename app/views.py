@@ -19,20 +19,13 @@ def get_post_request(request):
             return JsonResponse({})
         else:
             return JsonResponse({'error':form.error},status=400)
-def get_request(request):
-    if request.method=='GET':
-        form=squirrel(request.GET)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({})
-        else:
-            return JsonResponse({'error':form.error},status=400)
-    return JsonResponse({},status=405)
+
 
 
 def map(request):
     sightings=squirrel.objects.all()[:100]
     context={'sightings':sightings}
+
     return render(request, 'app/map.html',context)
 def sightings(request):
     sightings = squirrel.objects.all()
@@ -55,11 +48,11 @@ def unique_squirrel_id(request,squiid):
     sightings.age=form.age
     return render(request, 'app/id.html', context)
 def add(request):
-    get_post_request(request)
+    
     sightings = squirrel()
     context = {'sightings': sightings}
     return render(request, 'app/add.html', context)
-def stats(request):
+def status(request):
     total = len(squirrel.objects.all())
     la_sum = squirrel.objects.all().aggregate(minimum=Min('latitude'),maximum=Max('latitude'))
     lo_sum = squirrel.objects.all().aggregate(minimum=Min('longitude'),maximum=Max('longitude'))
