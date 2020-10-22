@@ -22,9 +22,10 @@ class Command(BaseCommand):
                 obj.primary_fur_color=item['Primary Fur Color']
                 obj.location=item['Location']
                 obj.specific_location=item['Specific Location']
-                obj.runnning=item['Running'].capitalize()
+                obj.running=item['Running'].capitalize()
                 obj.chasing=item['Chasing'].capitalize()
                 obj.climbing=item['Climbing'].capitalize()
+                obj.eating=item['Eating'].capitalize()
                 obj.foraging=item['Foraging'].capitalize()
                 obj.other_Activities=item['Other Activities']
                 obj.kuks=item['Kuks'].capitalize()
