@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import squirrel
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
-from django.db.models import Sum
+from django.db.models import Sum, Min, Max
 
 def get_post_request(request):
     if request.method=='POST':
@@ -61,29 +61,12 @@ def add(request):
     context = {'sightings': sightings}
     return render(request, 'app/add.html', context)
 def stats(request):
-    la_sum = squirrel.aggregate(minimum=Min('latitude'),maximum=Max('latitude'))
-    lo_sum = squirrel.aggregate(minimum=Min('longitude'),maximum=Max('longitutde'))
-    id_sum=0
-    for i in squirrel.objects.filter('squirrel_id'):
-        id_sum+=1
-    shift_am=0
-    shift_pm=0
-    for i in squirrel.objects.filter('shift'):
-        if i =='PM':
-            shift_pm+=1
-        else:
-            shift_am+=1
-    age_juvenile=0
-    age_adult=0
-    age_unknown=0
-    for i in squirrel.objects.filter('age'):
-        if i=="Juvenile":
-            age_juvenile+=1
-        elif i=="Adult":
-            age_adult+=1
-        else:
-            age_unknown+=1
-    context = {'la_sum':la_sum,'lo_sum':lo_sum,'id_sum':id_sum,'shift_am':shift_am,'shift_pm':shift_pm,'age_juvenile':age_juvenile,'age_adult':age_adult,'age_unknown':age_unknown}
+    total = len(squirrel.objects.all())
+    la_sum = squirrel.objects.all().aggregate(minimum=Min('latitude'),maximum=Max('latitude'))
+    lo_sum = squirrel.objects.all().aggregate(minimum=Min('longitude'),maximum=Max('longitude'))
+    age_juvenile = squirrel.objects.filter(age='juvenile').count()
+    age_adult = squirrel.objects.filter(age='adult').count()
+    context ={'total':total,'la_sum':la_sum,'lo_sum':lo_sum,'age_juvenile':age_juvenile,'age_adult':age_adult}
     return render(request, 'app/stats.html', context)
 
 
