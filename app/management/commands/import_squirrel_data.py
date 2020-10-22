@@ -18,7 +18,6 @@ class Command(BaseCommand):
                 obj.shift=item['Shift']
                 obj.date=datetime.strptime('%m%d%y',item['Date']).date()
                 obj.age=item['Age']
-<<<<<<< HEAD
                 obj.primary_fur_color=item['Primary Fur Color']
                 obj.location=item['Location']
                 obj.specific_location=item['Specific Location']
@@ -36,8 +35,5 @@ class Command(BaseCommand):
                 obj.approaches=item['Approaches'].capitalize()
                 obj.indifferent=item['Indifferent'].capitalize()
                 obj.runs_From=item['Runs from'].capitalize()
-
-=======
->>>>>>> parent of a942854... Import format
                 obj.save()
 
