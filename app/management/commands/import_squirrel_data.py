@@ -2,7 +2,6 @@ import csv
 import datetime
 from app.models import squirrel
 from django.core.management.base import BaseCommand,CommandError
-from datetime import date
 
 class Command(BaseCommand):
     def add_arguments(self,parser):
@@ -15,10 +14,11 @@ class Command(BaseCommand):
                 obj=squirrel()
                 obj.latitude=item['X']
                 obj.longitude=item['Y']
-                obj.squirrel_id=item['Unique Squirrel ID']
+                obj.id=item['Unique Squirrel ID']
                 obj.shift=item['Shift']
-                obj.date=datetime.date(int(item['Date'][-4:]),int(item['Date'][:2]),int(item['Date'][2:4]))
+                obj.date=datetime.strptime('%m%d%y',item['Date']).date()
                 obj.age=item['Age']
+<<<<<<< HEAD
                 obj.primary_fur_color=item['Primary Fur Color']
                 obj.location=item['Location']
                 obj.specific_location=item['Specific Location']
@@ -37,5 +37,7 @@ class Command(BaseCommand):
                 obj.indifferent=item['Indifferent'].capitalize()
                 obj.runs_From=item['Runs from'].capitalize()
 
+=======
+>>>>>>> parent of a942854... Import format
                 obj.save()
 
