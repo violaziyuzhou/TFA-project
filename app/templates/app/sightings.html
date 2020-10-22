@@ -5,12 +5,25 @@
     <title>sightings</title>
 </head>
 <body>
-      {% for sight in sightings %}
-      {{sight.date}}
-      {% endfor %}
- <a href="id/"><unique-squirrel-id></a>
- <a href="add/">add a sighting</a><br>
- <a href="stats/">show summary statistics</a>
+	<p><a href="add/">add a sighting</a><br></p>
+
+	<p><a href="stats/">show summary statistics</a></p>
+
+        <table id='squirrels'>
+		<tr>
+			<th>Unique_Squirrel_ID</th>
+			<th>Date</th>
+		</tr>
+
+		{% for sight in sightings %}
+
+		<tr>
+			<td> <a href='{{ sight.squirrel_id}}'>{{ sight.squirrel_id }}</a></td>
+			<td>{{sight.date}}</td>
+		</tr>
+
+		{% endfor %}
+	</table>
 
 </body>
 </html>
