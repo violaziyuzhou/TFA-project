@@ -33,7 +33,6 @@ def get_request(request):
 def map(request):
     sightings=squirrel.objects.all()[:100]
     context={'sightings':sightings}
-    get_request(request)
     return render(request, 'app/map.html',context)
 def sightings(request):
     sightings = squirrel.objects.all()
