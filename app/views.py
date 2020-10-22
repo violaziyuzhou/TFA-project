@@ -25,7 +25,7 @@ def get_post_request(request):
 def map(request):
     sightings=squirrel.objects.all()[:100]
     context={'sightings':sightings}
-    
+
     return render(request, 'app/map.html',context)
 def sightings(request):
     sightings = squirrel.objects.all()
