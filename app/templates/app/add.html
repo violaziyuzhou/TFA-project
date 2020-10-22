@@ -5,13 +5,10 @@
     <title>add</title>
 </head>
 <body>
-      <form action="" method="">
-    <p>{{sighting.latitude}}</p>
-    <p>{{sighting.longitude}}</p>
-    <p>{{sighting.squirrel_id}}</p>
-    <p>{{sighting.shift}}</p>
-    <p>{{sighting.date}}</p>
-    <p>{{sighting.age}}</p>
+      <form action="." method="post">
+      {% csrf_token %}
+	  {{ form.as_p }}
+	  <input type="submit" value="Save" />
 
 </form>
 </body>
