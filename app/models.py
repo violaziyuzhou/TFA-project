@@ -3,7 +3,7 @@ from django.db import models
 class squirrel(models.Model):
     latitude=models.FloatField(blank=False)
     longitude=models.FloatField(blank=False)
-    squirrel_id=models.CharField(max_length=30,blank=False,unique=True)
+    squirrel_id=models.CharField(max_length=30,primary_key=True)
     shift=models.CharField(max_length=30,blank=False)
     date=models.CharField(max_length=30,blank=False)
     age=models.CharField(max_length=30,blank=False)
