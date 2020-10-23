@@ -18,6 +18,10 @@ def sightings(request):
     sightings = squirrel.objects.all()
     context = {'sightings': sightings}
     return render(request, 'app/sightings.html', context)
+def squirrel_detail(request,squiid):
+    sightings = squirrel.objects.get(squirrel_id=squiid)
+    context={'sightings':sightings}
+    return render(request,'app/detail.html',context)
 def unique_squirrel_id(request,squiid):
     sightings = squirrel.objects.get(squirrel_id=squiid)
     form = Form(request.POST,instance=sightings)
