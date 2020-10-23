@@ -13,6 +13,5 @@ Group 31, Chunyi Guo & Zi Yu Zhou
 UNIs: [cg3231, zz2768]
 
 ## Server Link
+#### Server Application Link: https://tfa-2020-fall-zz2768.appspot.com/
 
-#### Public Clone Repo Link: 
-#### Server Application Link: 
