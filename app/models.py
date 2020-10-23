@@ -26,7 +26,8 @@ class squirrel(models.Model):
     runs_From=models.BooleanField(blank=True)
     def __str__(self):
         return self.squirrel_id
-    
+class apprequest(models.Model):
+    squi=models.ForeignKey('app.squirrel',on_delete=models.CASCADE) 
 
 
 
