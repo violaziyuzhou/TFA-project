@@ -24,9 +24,11 @@ class squirrel(models.Model):
     approaches=models.BooleanField(blank=True)
     indifferent=models.BooleanField(blank=True)
     runs_From=models.BooleanField(blank=True)
+    def __str__(self):
+        return self.squirrel_id
+    
 
-class apprequest(models.Model):
-    squi=models.ForeignKey('app.squirrel',on_delete=models.CASCADE)
+
 
 
 
